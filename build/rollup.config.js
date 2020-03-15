@@ -2,9 +2,12 @@ const path = require('path')
 const babel  = require('rollup-plugin-babel')
 const nodeRosolve = require('rollup-plugin-node-resolve')
 const commonjs = require('rollup-plugin-commonjs')
+const nodeGlobals = require('rollup-plugin-node-globals')
+const builtins = require('rollup-plugin-node-builtins')
 const json = require('rollup-plugin-json')
 const postcss = require('rollup-plugin-postcss')
-const stylus = require('rollup-plugin-stylus')
+const sass = require('node-sass')
+const stylus = require('stylus')
 
 const resolve = function (filePath) {
   return path.join(__dirname, '..', filePath)
@@ -13,6 +16,14 @@ const resolve = function (filePath) {
 const babelOptions = {
   "presets": ["@babel/preset-env"],
   "plugins": ["transform-object-rest-spread"]
+}
+
+const sass2css = function (context, payload) {
+  return new Promise((resolve, reject) => {
+    sass.render({file: context}, (err, result) => {
+      !err ? resolve(result) : reject(err)
+    })
+  })
 }
 
 const stylus2css = function (context, payload) {
@@ -33,8 +44,16 @@ module.exports = [
     },
     plugins: [
       nodeRosolve(),
+      builtins(),
       commonjs(),
+      nodeGlobals(),
       json(),
+      postcss({
+        extract: true,
+        minimize: process.env.NODE_ENV === 'production',
+        extensions: ['css', 'stylus'],
+        process: stylus2css
+      }),
       babel(babelOptions)
     ]
   },
@@ -46,10 +65,15 @@ module.exports = [
       sourcemap: true
     },
     plugins: [
+      nodeRosolve(),
+      builtins(),
+      commonjs(),
+      nodeGlobals(),
+      json(),
       postcss({
         extract: true,
         minimize: process.env.NODE_ENV === 'production',
-        extensions: ['css', 'styl'],
+        extensions: ['css', 'stylus'],
         process: stylus2css
       }),
       babel(babelOptions)

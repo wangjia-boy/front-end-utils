@@ -10,6 +10,7 @@ config.map((conf, index) => {
       ...conf.plugins,
       ...[
         serve({
+          open: true,
           port: PORT,
           contentBase: "./"
         })

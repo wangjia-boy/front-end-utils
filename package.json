@@ -19,7 +19,6 @@
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "debug": "^4.1.1",
     "jquery": "^3.4.1",
-    "poststylus": "^1.0.0",
     "rollup": "^2.0.6",
     "rollup-plugin-babel": "^4.4.0",
     "rollup-plugin-commonjs": "^10.1.0",
@@ -27,8 +26,13 @@
     "rollup-plugin-node-resolve": "^5.2.0",
     "rollup-plugin-postcss": "^2.4.1",
     "rollup-plugin-serve": "^1.0.1",
-    "rollup-plugin-stylus": "^1.0.4",
     "rollup-plugin-uglify": "^6.0.4",
-    "stylus": "^0.54.7"
+    "stylus": "^0.54.7",
+    "tracer": "^1.0.2"
+  },
+  "devDependencies": {
+    "node-sass": "^4.13.1",
+    "rollup-plugin-node-builtins": "^2.1.2",
+    "rollup-plugin-node-globals": "^1.4.0"
   }
 }
