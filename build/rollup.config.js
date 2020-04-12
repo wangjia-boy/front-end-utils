@@ -6,6 +6,7 @@ const nodeGlobals = require('rollup-plugin-node-globals')
 const builtins = require('rollup-plugin-node-builtins')
 const json = require('rollup-plugin-json')
 const postcss = require('rollup-plugin-postcss')
+
 const sass = require('node-sass')
 const stylus = require('stylus')
 
@@ -40,7 +41,14 @@ module.exports = [
     output: {
       file: resolve('dist/index.js'),
       format: 'umd',
-      sourcemap: true
+      sourcemap: true,
+      globals: {
+        jquery: 'jQuery'
+      }
+    },
+    external: ['jquery'],
+    paths: {
+      jquery: 'https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js'
     },
     plugins: [
       nodeRosolve(),

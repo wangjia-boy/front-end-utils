@@ -1,8 +1,11 @@
 {
-  "name": "rollup_demo",
+  "name": "front-end-utils",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "repository": "https://github.com/superjiajia/front-end-utils.git",
+  "author": "Wang Jia <wangjia125513819@foxmail.com>",
+  "license": "ISC",
   "directories": {
     "example": "example"
   },
@@ -11,13 +14,10 @@
     "dev": "node_modules/.bin/rollup -w -c ./build/rollup.config.dev.js",
     "build": "node_modules/.bin/rollup -c ./build/rollup.config.prod.js"
   },
-  "author": "",
-  "license": "ISC",
   "dependencies": {
     "@babel/core": "^7.8.7",
     "@babel/preset-env": "^7.8.7",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
-    "debug": "^4.1.1",
     "jquery": "^3.4.1",
     "rollup": "^2.0.6",
     "rollup-plugin-babel": "^4.4.0",
@@ -27,11 +27,11 @@
     "rollup-plugin-postcss": "^2.4.1",
     "rollup-plugin-serve": "^1.0.1",
     "rollup-plugin-uglify": "^6.0.4",
-    "stylus": "^0.54.7",
-    "tracer": "^1.0.2"
+    "stylus": "^0.54.7"
   },
   "devDependencies": {
     "node-sass": "^4.13.1",
+    "rollup-plugin-browsersync": "^1.1.0",
     "rollup-plugin-node-builtins": "^2.1.2",
     "rollup-plugin-node-globals": "^1.4.0"
   }

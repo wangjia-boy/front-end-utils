@@ -1,5 +1,6 @@
 const path = require('path')
-const serve = require('rollup-plugin-serve')
+// const serve = require('rollup-plugin-serve')
+const browserSync = require('rollup-plugin-browsersync')
 const config = require('./rollup.config')
 const PORT = 3000
 
@@ -9,11 +10,12 @@ config.map((conf, index) => {
     conf.plugins = [
       ...conf.plugins,
       ...[
-        serve({
-          open: true,
-          port: PORT,
-          contentBase: "./"
-        })
+        browserSync({server: './'})
+        // serve({
+        //   open: true,
+        //   port: PORT,
+        //   contentBase: "./"
+        // })
       ]
     ]
   }
