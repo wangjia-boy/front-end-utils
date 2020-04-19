@@ -1,9 +1,3 @@
-import pkg from './../package.json'
-import $ from 'jquery'
+import {shuffle} from './js/utils'
 
-// import './css/index.scss'
-import './css/home.styl'
-
-console.log(pkg.author)
-
-$('body').text('jQuery123555')
+console.log(shuffle([1,2,3,4,5]))
