@@ -1,3 +1,3 @@
-import {shuffle} from './js/utils'
+import {thousands} from './js/utils'
 
-console.log(shuffle([1,2,3,4,5]))
+console.log(thousands(1589084612000))

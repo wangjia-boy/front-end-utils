@@ -65,26 +65,26 @@ module.exports = [
       babel(babelOptions)
     ]
   },
-  {
-    input: resolve('src/home.js'),
-    output: {
-      file: resolve('dist/home.js'),
-      format: 'umd',
-      sourcemap: true
-    },
-    plugins: [
-      nodeRosolve(),
-      builtins(),
-      commonjs(),
-      nodeGlobals(),
-      json(),
-      postcss({
-        extract: true,
-        minimize: process.env.NODE_ENV === 'production',
-        extensions: ['css', 'stylus'],
-        process: stylus2css
-      }),
-      babel(babelOptions)
-    ]
-  }
+  // {
+  //   input: resolve('src/home.js'),
+  //   output: {
+  //     file: resolve('dist/home.js'),
+  //     format: 'umd',
+  //     sourcemap: true
+  //   },
+  //   plugins: [
+  //     nodeRosolve(),
+  //     builtins(),
+  //     commonjs(),
+  //     nodeGlobals(),
+  //     json(),
+  //     postcss({
+  //       extract: true,
+  //       minimize: process.env.NODE_ENV === 'production',
+  //       extensions: ['css', 'stylus'],
+  //       process: stylus2css
+  //     }),
+  //     babel(babelOptions)
+  //   ]
+  // }
 ]
