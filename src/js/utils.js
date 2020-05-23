@@ -79,7 +79,7 @@ let pubsub = (function() {
 
   return { listen, trigger, remove }
 }());
-// 无按键倒计时
+// 无按键
 let autoHide = (function () {
   let autoHideMS = 0
     , timer = null
@@ -140,6 +140,15 @@ export function getParams(name, url = window.location.search) {
   let r = url.substr(1).match(reg);
   return r !== null ? unescape(r[2]) : null
 }
+// url拼接参数
+export function setURL(url, param) {
+  var args = link = "";
+  for(var key in param){
+    args += '&' + key + "=" + param[key];
+  }
+  link = url + "?" + args.substr(1);
+  return link.replace(' ','');
+}
 // 首字母大写
 export function firstUpperCase(str) {
   return str.toLowerCase().replace(/( |^)[a-z]/g, (L) => L.toUpperCase())
@@ -176,6 +185,28 @@ export function getMSFormat(ms) {
     return `00:00:00`
   }
 }
+// 获取某月的天数
+export function getDays(year, month) {
+  return new Date(year, month, 0).getDate();
+}
+// 获取某月某日是周几
+export function getWeekends(year, month, i) {
+  return new Date(year, month - 1, i).getDay();
+}
+// 倒计时
+export function getCountDown(date) {
+  var ms = (Date.parse(date)) - (new Date().getTime());
+  if (ms >= 0) {
+    return {
+      "dd": Math.floor(ms / (1000 * 60 * 60 * 24)),
+      "hh": fillZero(Math.floor(ms / (1000 * 60 * 60)) % 24),
+      "mm": fillZero(Math.floor(ms / (1000 * 60)) % 60),
+      "ss": fillZero(Math.floor(ms / 1000) % 60)
+    };
+  } else {
+    return false;
+  }
+}
 // 随机ID
 export function randomID() {
   return Math.random().toString(36).substring(2)
@@ -184,9 +215,15 @@ export function randomID() {
 export function thousands(num) {
 	return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
 }
-
+// 获取随机数
 function getRandom(min, max) {
   return Math.floor(Math.random() * (max - min + 1) + min)
+}
+// 随机生成颜色码
+export function getRandomColor() {
+  return '#' + (function(h) {
+    return new Array(7 - h.length).join("0") + h;
+  })((Math.random() * 0x1000000 << 0).toString(16));
 }
 // 数组乱序
 export function shuffle(arr) {
@@ -221,7 +258,7 @@ export function arraySum(arr) {
   }
 }
 // 深拷贝对象
-export function deepCopy(obj){
+export function deepCopy(obj) {
   if(typeof obj != 'object'){
     return obj
   }
@@ -231,30 +268,8 @@ export function deepCopy(obj){
   }
   return newobj
 }
-// 获取cookie、
-export function getCookie() {
-  var arr, reg = new RegExp("(^| )" + name + "=([^;]*)(;|$)")
-  if (arr = document.cookie.match(reg))
-   return (arr[2])
-  else
-   return null
-}
-// 设置cookie,增加到vue实例方便全局调用
-export function setCookie(c_name, value, expiredays, path) {
-  var exdate = new Date()
-  exdate.setDate(exdate.getDate() + expiredays)
-  document.cookie = c_name + "=" + escape(value) + ((expiredays == null) ? "" : ";expires=" + exdate.toGMTString()) + (path ? ";path=/" : `;path=${path}`)
-}
-// 删除cookie
-export function delCookie(name) {
-  var exp = new Date()
-  exp.setTime(exp.getTime() - 1)
-  var cval = getCookie(name)
-  if (cval != null)
-    document.cookie = name + "=" + cval + ";expires=" + exp.toGMTString()
-}
 // 时间戳转字符串
-export function timeToStr(timestamp, type = 'time'){
+export function timeToStr(timestamp, type = 'time') {
   if(!timestamp) return '-'
   let dt = new Date(timestamp)
     , year = dt.getFullYear()
@@ -268,6 +283,13 @@ export function timeToStr(timestamp, type = 'time'){
 	} else if (type === 'date') {
 	  return `${year}-${month}-${day}`
 	}
+}
+// 计算两个日期之间相差天数，xxxx-xx-xx格式
+export function dateDiff(startDate, endDate) {
+  let startTime = new Date(Date.parse(startDate.replace(/-/g, "/"))).getTime()
+    , endTime = new Date(Date.parse(endDate.replace(/-/g, "/"))).getTime()
+    , dates = Math.abs((startTime - endTime)) / (1000 * 60 * 60 * 24);     
+  return dates;
 }
 // 获得字符长度
 export function getByteLen (val) {
@@ -303,24 +325,6 @@ Date.prototype.Format = function(format) {
   }
   return format
 }
-// 最近n个月时间获取
-export function getnMonthBefore(n) {
-  var resultDate,year,month,date,hms
-  var currDate = new Date()
-  year = currDate.getFullYear()
-  month = currDate.getMonth()+1
-  date = currDate.getDate()
-  hms = currDate.getHours() + ':' + fillZero(currDate.getMinutes()) + ':' + fillZero(currDate.getSeconds() < 10)
-  if (month <= n) {
-    month += 12 - n
-    year--
-  } else {
-    month -= n
-  }
-  month = (month < 10) ? ('0' + month) : month
-  resultDate = year + '-' + month + '-' + date + ' ' + hms
-  return resultDate
-}
 // 获得密码强度
 export function pwdIntensity(pwd) {
   let intensity = 0
@@ -355,6 +359,7 @@ export function randomString(len) {
 
 var docCookies = {
   getItem: function (sKey) {
+    if (!sKey) { return null; }
     return decodeURIComponent(document.cookie.replace(new RegExp("(?:(?:^|.*;)\\s*" + encodeURIComponent(sKey).replace(/[\-\.\+\*]/g, "\\$&") + "\\s*\\=\\s*([^;]*).*$)|^.*$"), "$1")) || null;
   },
   setItem: function (sKey, sValue, vEnd, sPath, sDomain, bSecure) {
@@ -373,65 +378,25 @@ var docCookies = {
           break;
       }
     }
-    document.cookie = encodeURIComponent(sKey) + "=" + encodeURIComponent(sValue) + sExpires + (sDomain ? "; domain=" + sDomain : "") + (sPath ? "; path=" + sPath : "/") + (bSecure ? "; secure" : "");
+    document.cookie = encodeURIComponent(sKey) + "=" + encodeURIComponent(sValue) + sExpires + (sDomain ? "; domain=" + sDomain : "") + (sPath ? "; path=" + sPath : "") + (bSecure ? "; secure" : "");
     return true;
   },
   removeItem: function (sKey, sPath, sDomain) {
-    if (!sKey || !this.hasItem(sKey)) { return false; }
-    document.cookie = encodeURIComponent(sKey) + "=; expires=Thu, 01 Jan 1970 00:00:00 GMT" + ( sDomain ? "; domain=" + sDomain : "") + ( sPath ? "; path=" + sPath : "/");
+    if (!this.hasItem(sKey)) { return false; }
+    document.cookie = encodeURIComponent(sKey) + "=; expires=Thu, 01 Jan 1970 00:00:00 GMT" + (sDomain ? "; domain=" + sDomain : "") + (sPath ? "; path=" + sPath : "");
     return true;
   },
   hasItem: function (sKey) {
+    if (!sKey) { return false; }
     return (new RegExp("(?:^|;\\s*)" + encodeURIComponent(sKey).replace(/[\-\.\+\*]/g, "\\$&") + "\\s*\\=")).test(document.cookie);
   },
-  keys: /* optional method: you can safely remove it! */ function () {
+  keys: function () {
     var aKeys = document.cookie.replace(/((?:^|\s*;)[^\=]+)(?=;|$)|^\s*|\s*(?:\=[^;]*)?(?:\1|$)/g, "").split(/\s*(?:\=[^;]*)?;\s*/);
-    for (var nIdx = 0; nIdx < aKeys.length; nIdx++) { aKeys[nIdx] = decodeURIComponent(aKeys[nIdx]); }
+    for (var nLen = aKeys.length, nIdx = 0; nIdx < nLen; nIdx++) { aKeys[nIdx] = decodeURIComponent(aKeys[nIdx]); }
     return aKeys;
   }
 }
 
-export {docCookies}
-
-// 获取相差多少天
-export function getOffsetDays(time) {
-  var today = new Date()
-  today.setHours(0)
-  today.setMinutes(0)
-  today.setSeconds(0)
-  today.setMilliseconds(0)
-  var offsetTime = Math.abs(time - today)
-  return Math.ceil(offsetTime / (3600 * 24 * 1e3))
-}
-
-export const innerWidth = (node) => {
-  let width = node.clientWidth
-  const computedStyle = node.style
-  width -= int(computedStyle.paddingLeft)
-  width -= int(computedStyle.paddingRight)
-  return width
-}
-
-export const outerWidth = (node) => {
-  let width = node.clientWidth
-  const computedStyle = node.style
-  width += int(computedStyle.borderLeftWidth);
-  width += int(computedStyle.borderRightWidth);
-  return width
-}
-
-export const innerHeight = (node) => {
-  let height = node.clientHeight
-  const computedStyle = node.style
-  height -= int(computedStyle.paddingTop)
-  height -= int(computedStyle.paddingBottom)
-  return height
-}
-
-export const outerHeight = (node) => {
-  let height = node.clientHeight
-  const computedStyle = node.style
-  height += int(computedStyle.borderTopWidth)
-  height += int(computedStyle.borderBottomWidth)
-  return height
+export {
+  fillZero, getRandom, docCookies
 }

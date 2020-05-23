@@ -1,3 +1,3 @@
-import {thousands} from './js/utils'
+import {dateDiff} from './js/utils'
 
-console.log(thousands(1589084612000))
+console.log(dateDiff('2020-05-25', '2020-05-30'))
