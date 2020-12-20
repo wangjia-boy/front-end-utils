@@ -17,15 +17,15 @@ body
 	justify-content space-between
 	>span
 		display inline-block
+		width 100px;
 		transition transform .6s
-	>.before:first-child
-		transform translateX(10px)
 	>.before:last-child
-		transform translateX(-10px)
+		text-align right
 	>.after:first-child
-		transform translateX(calc(100vw - 100% - 10px))
+		transform translateX(calc(100vw - 100% - 30px))
+		text-align right
 	>.after:last-child
-		transform translateX(calc(-100vw + 100% + 10px))
+		transform translateX(calc(-100vw + 100% + 30px))
 
 input[type=checkbox]
 	// display none
@@ -56,22 +56,6 @@ input[type=checkbox]:checked+label:before
 	counter-increment sum 100
 .sum:after
 	content 'Sum: ' counter(sum)
-
-.border
-	width 200px
-	height 200px
-	position relative
-	background-color #fff
-	&:before
-		content ''
-		width 220px
-		height 220px
-		position absolute
-		top -10px
-		left -10px
-		z-index -1
-.bd1:before
-	background-image linear-gradient(90deg, #039be5, #ffd600)
 
 p::selection
 	background-color #00a862
@@ -109,7 +93,7 @@ p::selection
 
 button
 	pointer-events none
-	background-color #039be5
+	background-color pink
 	color #fff
 	border 1px solid currentColor
 input[type=text]
@@ -118,12 +102,11 @@ input[type=text]
 		border-color #00a862
 	&:invalid
 		border-color #ff4444
-h2
+.multi-substring
 	display: block;
 	display: -webkit-box;
 	max-width: 200px;
 	height: 109.2px;
-	margin: 0 auto;
 	font-size: 26px;
 	line-height: 1.4;
 	-webkit-line-clamp: 3;

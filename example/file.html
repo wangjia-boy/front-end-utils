@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .box{width: 660px; height: 330px; background-color: azure;overflow: hidden;}
+    .list{position: relative;}
+    .file{display: inline-block;width: 100px;height: 100px;background-color: pink;margin: 5px;line-height: 100px;text-align: center;}
+    .active{background-color: #039be5;color: white;}
+  </style>
+</head>
+<body>
+  <div id="app">
+    <div class="box">
+      <div class="list" @keydown="down" tabindex="1" :style="{transform: 'translateY('+top+'px)'}">
+        <div class="file" v-for="(v, i) in fileList" :key="i" :class="{active: index + 1=== v}">{{v}}</div>
+      </div>
+    </div>
+  </div>
+  <script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.12/vue.js"></script>
+  <script>
+    new Vue({
+      el: '#app',
+      data: {
+        mediaList: [],
+        fileList: [],
+        index: 0,
+        size: 18,
+        top: 0,
+        page: 1,
+        temp: [],
+        tempIndex: 0,
+      },
+      methods: {
+        down(e) {
+          switch (e.key) {
+            case 'ArrowUp':
+              this.index -= 6;
+              break;
+            case 'ArrowRight':
+              this.index++;
+              break;
+            case 'ArrowDown':
+              this.index += 6;
+              if (this.index >= this.fileList.length) {
+                if (this.page >= 3 && this.index >= 18 * this.page) {
+                  let _arr = this.mediaList.slice(this.size, this.size + 18)
+                  this.size += 18
+                  this.temp = _arr
+                  this.tempIndex = 6
+                  this.fileList.splice(0, 6)
+                  this.fileList.push(...this.temp.slice(0, 6))
+                  this.page++
+                  console.warn('回收页')
+                } else if (this.page >= 3 && this.index >= 18 * (this.page - 1)) {
+                  this.fileList.splice(0, 6)
+                  this.fileList.push(...this.temp.slice(this.tempIndex, this.tempIndex + 6))
+                  this.tempIndex += 6
+                  console.warn('回收行')
+                } else if (this.page < 3) {
+                  this.fill(this.size, this.size + 18)
+                  this.size += 18
+                  this.top -= 110
+                  this.page++
+                }
+              } else if (this.index > 18 && this.index <= 18 * 3 - 6) {
+                this.top -= 110
+              }
+              console.warn(this.index + 1, this.top, this.page)
+              break;
+            case 'ArrowLeft':
+              this.index--;
+              break;
+          }
+        },
+        fill(start, end) {
+          this.fileList = [...this.fileList, ...this.mediaList.slice(start, end)]
+        }
+      },
+      created () {
+        let _arr = []
+        for (let i = 0; i < 1000; i++) {
+          _arr.push(i + 1)
+        }
+        this.mediaList = _arr
+        this.fill(0, this.size)
+      }
+    })
+  </script>
+</body>
+</html>

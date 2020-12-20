@@ -8,51 +8,57 @@
   <link rel="stylesheet" href="./../dist/index.css">
 </head>
 <body>
-  <div id="app"></div>
-  <div class="transform">
-		<span class="before">Beijing</span>
-		<span><<>></span>
-		<span class="before">Shanghai</span>
+	<div id="app">
+		<h3>1 - 两地互换</h3>
+		<div class="transform">
+			<span :class="[transfromAddr ? 'before' : 'after']">Beijing</span>
+			<span @click="transfromAddr = !transfromAddr"><<>></span>
+			<span :class="[transfromAddr ? 'before' : 'after']">Shanghai</span>
+		</div>
+		<h3>2 - css计数器</h3>
+		<div class="increment">
+			<input type="checkbox" id="check1" name="check" />
+			<label for="check1">Checkbox</label>
+			<input type="checkbox" id="check2" name="check" />
+			<label for="check2">Checkbox</label>
+			<input type="checkbox" id="check3" name="check" />
+			<label for="check3">Checkbox</label>
+			<span class="sum"></span>
+		</div>
+		<h3>3 - css评分</h3>
+		<div class="rating">
+				<input type="radio" id="star5" name="rating" value="5" hidden/>
+				<label for="star5"></label>
+				<input type="radio" id="star4" name="rating" value="4" hidden/>
+				<label for="star4"></label>
+				<input type="radio" id="star3" name="rating" value="3" hidden/>
+				<label for="star3"></label>
+				<input type="radio" id="star2" name="rating" value="2" hidden/>
+				<label for="star2"></label>
+				<input type="radio" id="star1" name="rating" value="1" hidden/>
+				<label for="star1"></label>
+		</div>
+		<h3>4 - css鼠标穿透</h3>
+		<button>button</button>
+		<input type="text" required>
+		<h3>5 - css多行超出隐藏</h3>
+		<p class="multi-substring">多行隐藏多行隐藏多行隐藏多行隐藏多行隐藏多行隐藏</p>
+		<h3>6 - </h3>
+		<p style="line-height: 100px">html5</p>
+		<p style="line-height: 100px">html5</p>
+		<p style="line-height: 100px">html5</p>
+		<p style="line-height: 100px">html5</p>
+		<p style="line-height: 100px">html5</p>
+		<p style="line-height: 100px">html5</p>
+		<p style="line-height: 100px">html5</p>
+		<p style="line-height: 100px">html5</p>
+		<p style="line-height: 100px">html5</p>
+		<p style="line-height: 100px">html5</p>
+		<p style="line-height: 100px">html5</p>
+		<p style="line-height: 100px">html5</p>
 	</div>
-	<div class="increment">
-		<input type="checkbox" id="check1" name="check" />
-		<label for="check1">Checkbox</label>
-		<input type="checkbox" id="check2" name="check" />
-		<label for="check2">Checkbox</label>
-		<input type="checkbox" id="check3" name="check" />
-		<label for="check3">Checkbox</label>
-		<span class="sum"></span>
-	</div>
-	<div class="border bd1"></div>
-	<div class="rating">
-			<input type="radio" id="star5" name="rating" value="5" hidden/>
-			<label for="star5"></label>
-			<input type="radio" id="star4" name="rating" value="4" hidden/>
-			<label for="star4"></label>
-			<input type="radio" id="star3" name="rating" value="3" hidden/>
-			<label for="star3"></label>
-			<input type="radio" id="star2" name="rating" value="2" hidden/>
-			<label for="star2"></label>
-			<input type="radio" id="star1" name="rating" value="1" hidden/>
-			<label for="star1"></label>
-	</div>
-	<button>button</button>
-	<input type="text" required>
-	<h2>多行隐藏多行隐藏多行隐藏多行隐藏多行隐藏多行隐藏</h2>
-	<p style="line-height: 100px">html5</p>
-	<p style="line-height: 100px">html5</p>
-	<p style="line-height: 100px">html5</p>
-	<p style="line-height: 100px">html5</p>
-	<p style="line-height: 100px">html5</p>
-	<p style="line-height: 100px">html5</p>
-	<p style="line-height: 100px">html5</p>
-	<p style="line-height: 100px">html5</p>
-	<p style="line-height: 100px">html5</p>
-	<p style="line-height: 100px">html5</p>
-	<p style="line-height: 100px">html5</p>
-	<p style="line-height: 100px">html5</p>
 	<script src="https://cdn.bootcss.com/babel-polyfill/6.26.0/polyfill.js"></script>
-	<source src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js">
-  <script src="./../dist/index.js"></script>
+	<script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.12/vue.js"></script>
+	<script src="./../dist/index.js"></script>
 </body>
 </html>

@@ -43,12 +43,12 @@ module.exports = [
       format: 'umd',
       sourcemap: true,
       globals: {
-        jquery: 'jQuery'
+        vue: 'Vue'
       }
     },
-    external: ['jquery'],
+    external: ['vue'],
     paths: {
-      jquery: 'https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js'
+      vue: 'https://cdn.bootcdn.net/ajax/libs/vue/2.6.12/vue.js'
     },
     plugins: [
       nodeRosolve(),

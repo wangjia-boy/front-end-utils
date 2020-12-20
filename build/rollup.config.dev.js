@@ -10,7 +10,10 @@ config.map((conf, index) => {
     conf.plugins = [
       ...conf.plugins,
       ...[
-        browserSync({server: './'})
+        browserSync({
+          server: './',
+          watch: true
+        })
         // serve({
         //   open: true,
         //   port: PORT,
