@@ -258,15 +258,31 @@ export function arraySum(arr) {
   }
 }
 // 深拷贝对象
-export function deepCopy(obj) {
-  if (typeof obj != 'object') {
-    return obj
+export function deepCopy(values) {
+  let copy
+  if (null == values || "object" != typeof values) return values;
+
+  if (values instanceof Date) {
+    copy = new Date()
+    copy.setTime(values.getTime())
+    return copy;
   }
-  let newobj = {}
-  for (let attr in obj) {
-    newobj[attr] = deepCopy(obj[attr])
+
+  if (values instanceof Array) {
+    copy = []
+    for (var i = 0, len = values.length; i < len; i++) {
+      copy[i] = deepClone(values[i]);
+    }
+    return copy;
   }
-  return newobj
+  
+  if (values instanceof Object) {
+    copy = {}
+    for (var attr in values) {
+      if (values.hasOwnProperty(attr)) copy[attr] = deepClone(values[attr])
+    }
+    return copy;
+  }
 }
 // 时间戳转字符串
 export function timeToStr(timestamp, type = 'time') {
@@ -371,8 +387,12 @@ export function getClientHeight() {
   return clientHeight;
 }
 // 获取滚动条距顶部高度
-export function getPageScrollTop() {
+export function getScrollTop() {
   return document.documentElement.scrollTop || document.body.scrollTop;
+}
+// 设置滚动条距顶部高度
+export function setScrollTop(y) {
+  window.scrollTo(0, y)
 }
 // 获取当前滚动条位置
 export function getScrollPosition() {
@@ -469,7 +489,7 @@ export function typeJudge(val, type) {
   return type ? dataType === type : dataType;
 }
 
-let docCookies = {
+let cookies = {
   getItem: function (sKey) {
     if (!sKey) { return null; }
     return decodeURIComponent(document.cookie.replace(new RegExp("(?:(?:^|.*;)\\s*" + encodeURIComponent(sKey).replace(/[\-\.\+\*]/g, "\\$&") + "\\s*\\=\\s*([^;]*).*$)|^.*$"), "$1")) || null;
@@ -510,5 +530,5 @@ let docCookies = {
 }
 
 export {
-  fillZero, getRandom, docCookies
+  fillZero, getRandom, cookies
 }
