@@ -1,0 +1,45 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>无标题文档</title>
+  <style>
+  canvas {
+    border: 1px solid red;
+    margin: 100px;
+  }
+  </style>
+  <script>
+  window.onload = function() {
+    color = "black";
+
+    oc = document.getElementById("mycanvas");
+    ogc = oc.getContext("2d");
+    ox = oc.getBoundingClientRect().left;
+    oy = oc.getBoundingClientRect().top;
+    oc.onmousedown = function(e) {
+      mx = e.clientX - ox;
+      my = e.clientY - oy;
+      ogc.beginPath();
+      ogc.moveTo(mx, my);
+      document.onmousemove = function(e) {
+        ogc.lineTo(e.clientX - ox, e.clientY - oy);
+        ogc.stroke();
+      }
+      document.onmouseup = function(e) {
+        document.onmousemove = null;
+      }
+    }
+
+  }
+
+  //
+  </script>
+</head>
+
+<body>
+  <canvas width="500" height="500" id="mycanvas">no support</canvas>
+</body>
+
+</html>
