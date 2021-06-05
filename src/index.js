@@ -1,7 +1,9 @@
 import './css/base.styl'
-// import {dateDiff} from './js/utils'
+import { arrayMax, arrayMin, arrayChunk } from './js/utils'
 
-// console.log(dateDiff('2020-05-25', '2020-05-30'))
+console.log(arrayMax([2, 6, 87, 1, -1, 0, -876]))
+console.log(arrayMin([2, 6, 87, 1, -1, 0, -876]))
+console.log(arrayChunk([2, 6, 87, 1, -1, 0, -876], 2))
 
 new Vue({
   el: '#app',

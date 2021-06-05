@@ -2,7 +2,6 @@ const path = require('path')
 // const serve = require('rollup-plugin-serve')
 const browserSync = require('rollup-plugin-browsersync')
 const config = require('./rollup.config')
-const PORT = 3000
 
 config.map((conf, index) => {
   conf.sourcemap = true
@@ -16,7 +15,7 @@ config.map((conf, index) => {
         })
         // serve({
         //   open: true,
-        //   port: PORT,
+        //   port: 3000,
         //   contentBase: "./"
         // })
       ]

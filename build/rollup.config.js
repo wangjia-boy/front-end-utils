@@ -7,7 +7,7 @@ const builtins = require('rollup-plugin-node-builtins')
 const json = require('rollup-plugin-json')
 const postcss = require('rollup-plugin-postcss')
 
-const sass = require('node-sass')
+// const sass = require('node-sass')
 const stylus = require('stylus')
 
 const resolve = function (filePath) {
@@ -19,13 +19,13 @@ const babelOptions = {
   "plugins": ["transform-object-rest-spread"]
 }
 
-const sass2css = function (context, payload) {
-  return new Promise((resolve, reject) => {
-    sass.render({file: context}, (err, result) => {
-      !err ? resolve(result) : reject(err)
-    })
-  })
-}
+// const sass2css = function (context, payload) {
+//   return new Promise((resolve, reject) => {
+//     sass.render({file: context}, (err, result) => {
+//       !err ? resolve(result) : reject(err)
+//     })
+//   })
+// }
 
 const stylus2css = function (context, payload) {
   return new Promise((resolve, reject) => {
