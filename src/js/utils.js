@@ -611,6 +611,38 @@ export function escapeHTML(str) {
       }[tag] || tag)
   )
 }
+// 图片转base64
+export function imgToBase64(img, callback) {
+  let reader = new FileReader()
+  reader.addEventListener('load', () => {
+    callback(reader.result)
+    reader = null
+  })
+  reader.readAsDataURL(img)
+}
+// 根据生成图标
+export function drawLogo(text, font = '72px Arial') {
+  let canvas = document.createElement('canvas')
+  let context = canvas.getContext('2d')
+  context.font = font
+  let width = context.measureText(text).width
+  if (width < 200) {
+    width = 200
+  } else {
+    width = width + 30
+  }
+  canvas.width = width
+  canvas.height = width
+  context.fillStyle = '#eef4ff'
+  context.fillRect(0, 0, canvas.width, canvas.height)
+  context.font = font
+  context.textAlign = 'center'
+  context.textBaseline = 'middle'
+  context.fillStyle = '#0054fe'
+  context.fillText(text, canvas.width / 2, canvas.height / 2)
+  let dataUrl = canvas.toDataURL('image/png')
+  return dataUrl
+}
 
 let cookies = {
   getItem: function (sKey) {
