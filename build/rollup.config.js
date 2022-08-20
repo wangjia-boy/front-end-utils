@@ -1,10 +1,10 @@
 const path = require('path')
-const babel  = require('rollup-plugin-babel')
-const nodeRosolve = require('rollup-plugin-node-resolve')
-const commonjs = require('rollup-plugin-commonjs')
+const { babel } = require('@rollup/plugin-babel')
+const { nodeResolve } = require('@rollup/plugin-node-resolve')
+const commonjs = require('@rollup/plugin-commonjs')
 const nodeGlobals = require('rollup-plugin-node-globals')
 const builtins = require('rollup-plugin-node-builtins')
-const json = require('rollup-plugin-json')
+const json = require('@rollup/plugin-json')
 const postcss = require('rollup-plugin-postcss')
 
 // const sass = require('node-sass')
@@ -16,7 +16,7 @@ const resolve = function (filePath) {
 
 const babelOptions = {
   "presets": ["@babel/preset-env"],
-  "plugins": ["transform-object-rest-spread"]
+  "plugins": ["@babel/plugin-proposal-object-rest-spread"]
 }
 
 // const sass2css = function (context, payload) {
@@ -51,7 +51,7 @@ module.exports = [
       vue: 'https://cdn.bootcdn.net/ajax/libs/vue/2.6.12/vue.js'
     },
     plugins: [
-      nodeRosolve(),
+      nodeResolve(),
       builtins(),
       commonjs(),
       nodeGlobals(),
@@ -73,7 +73,7 @@ module.exports = [
   //     sourcemap: true
   //   },
   //   plugins: [
-  //     nodeRosolve(),
+  //     nodeResolve(),
   //     builtins(),
   //     commonjs(),
   //     nodeGlobals(),
