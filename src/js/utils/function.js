@@ -116,6 +116,14 @@ export function copyToClipboard(str) {
     doc.getSelection().addRange(selected)
   }
 }
+// 复制字符串到剪切板
+export function copyToClipboard2(text) {
+  return navigator.clipboard.writeText(text)
+}
+// 获取用户选择的文本
+export function getSelectionText() {
+  return window.getSelection().toString()
+}
 // 判断数据类型
 export function typeJudge(val, type) {
   const dataType = Object.prototype.toString.call(val).replace(/\[object (\w+)\]/, '$1').toLowerCase()
@@ -170,6 +178,10 @@ export function drawLogo(text, font = '72px Arial') {
   context.fillText(text, canvas.width / 2, canvas.height / 2)
   let dataUrl = canvas.toDataURL('image/png')
   return dataUrl
+}
+// 检查用户的设备是否处于深色模式
+export function isDarkMode() {
+  return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
 }
 // 链异步函数
 /*

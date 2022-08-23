@@ -1,4 +1,4 @@
-import { fillZero } from './number'
+import { fillZero } from './string'
 
 // 时间转毫秒数
 export function getTime(time) {

@@ -1,3 +1,11 @@
+// 补零
+export function fillZero(val) {
+  return val < 10 ? '0' + val : val
+}
+// 补零
+export function fillZero2(val, len = 2) {
+  return val.toString().padStart(len, "0")
+}
 // 首字母大写
 export function firstUpperCase(str) {
   return str.toLowerCase().replace(/( |^)[a-z]/g, (L) => L.toUpperCase())
@@ -86,15 +94,12 @@ export function setParams(url, param) {
 }
 // 转义html
 export function escapeHTML(str) {
-  return str.replace(
-    /[&<>'"]/g,
-    tag =>
-      ({
-        '&': '&amp;',
-        '<': '&lt;',
-        '>': '&gt;',
-        "'": '&#39;',
-        '"': '&quot;'
-      }[tag] || tag)
+  return str.replace(/[&<>'"]/g, tag => ({
+      '&': '&amp;',
+      '<': '&lt;',
+      '>': '&gt;',
+      "'": '&#39;',
+      '"': '&quot;'
+    }[tag] || tag)
   )
 }

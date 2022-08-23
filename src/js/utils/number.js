@@ -1,7 +1,3 @@
-// 补零
-export function fillZero(val) {
-  return val < 10 ? '0' + val : val
-}
 // 获取随机数
 export function getRandom(min, max) {
   return Math.floor(Math.random() * (max - min + 1) + min)
