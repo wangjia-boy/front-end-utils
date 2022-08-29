@@ -43,20 +43,14 @@
 		<input type="text" required>
 		<h3>5 - css多行超出隐藏</h3>
 		<p class="multi-substring">多行隐藏多行隐藏多行隐藏多行隐藏多行隐藏多行隐藏</p>
-		<h3>6 - </h3>
-		<p style="line-height: 100px">html5</p>
-		<p style="line-height: 100px">html5</p>
-		<p style="line-height: 100px">html5</p>
-		<p style="line-height: 100px">html5</p>
-		<p style="line-height: 100px">html5</p>
-		<p style="line-height: 100px">html5</p>
-		<p style="line-height: 100px">html5</p>
-		<p style="line-height: 100px">html5</p>
-		<p style="line-height: 100px">html5</p>
-		<p style="line-height: 100px">html5</p>
-		<p style="line-height: 100px">html5</p>
-		<p style="line-height: 100px">html5</p>
-		<button id="btn">button</button>
+		<div id="root">
+			<div class="box" style="width: 300px;height: 80px;border: 1px #ccc solid;">
+				<p style="margin: 0; white-space: wrap;overflow-y: auto;">
+					<code v-for="v in list" :key="v" style="display: inline-block; background-color: #ffd600;margin-right: 3px;">{{v}}</code>
+				</p>
+				<input type="text" @input="input">
+			</div>
+		</div>
 	</div>
 	<script src="https://cdn.bootcss.com/babel-polyfill/6.26.0/polyfill.js"></script>
 	<script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.12/vue.js"></script>
