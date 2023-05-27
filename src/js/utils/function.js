@@ -225,6 +225,24 @@ export function mix(...mixins) {
 
   return Mix
 }
+// await函数catch捕获
+export function awaitWrap(promise) {
+  return promise
+    .then(data => [null, data])
+    .catch(err => [err, null])
+}
+// base64转blob
+export function dataURLtoBlob(dataUrl) {
+  var arr = dataUrl.split(','),
+    mime = arr[0].match(/:(.*?);/)[1],
+    bstr = atob(arr[1]),
+    n = bstr.length,
+    u8arr = new Uint8Array(n);
+  while (n--) {
+    u8arr[n] = bstr.charCodeAt(n);
+  }
+  return new Blob([u8arr], { type: mime })
+}
 // 订阅发布
 let pubsub = (function () {
   let clientList = {}
@@ -323,7 +341,21 @@ let autoHide = (function () {
 
   return { start, remove }
 }())
+// base64编解码
+let Base64 = {
+  encode(str) {
+    return btoa(encodeURIComponent(str).replace(/%([0-9A-F]{2})/g,
+      function toSolidBytes(match, p1) {
+        return String.fromCharCode('0x' + p1)
+      }))
+  },
+  decode(str) {
+    return decodeURIComponent(atob(str).split('').map(function (c) {
+      return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2)
+    }).join(''))
+  }
+}
 
 export {
-  pubsub, autoHide
+  pubsub, autoHide, Base64
 }

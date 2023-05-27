@@ -1,5 +1,8 @@
 import './css/base.styl'
 import { typeJudge } from './js/utils.js'
+import { Base64 } from './js/utils/function'
+
+console.log(Base64.encode('wj123456'))
 
 new Vue({
   el: '#root',

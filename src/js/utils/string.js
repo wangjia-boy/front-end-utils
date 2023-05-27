@@ -32,6 +32,14 @@ export function uuidv4() {
     return v.toString(16)
   })
 }
+// uuid，基于URL生成
+export function genUUID() {
+  const url = URL.createObjectURL(new Blob([]))
+  // const uuid = url.split("/").pop()
+  const uuid = url.substring(url.lastIndexOf('/') + 1)
+  URL.revokeObjectURL(url)
+  return uuid
+}
 // 获得字符长度
 export function getByteLen(val) {
   let len = 0
@@ -78,6 +86,16 @@ export function getParams(name, url = window.location.search) {
   let r = url.substr(1).match(reg)
   return r !== null ? unescape(r[2]) : null
 }
+// 获取地址栏参数
+export function getQueryString(key){
+  const searchParams = new URLSearchParams(location.search)
+  return searchParams.get(key)
+}
+// 获取地址栏参数
+// export function getQueryString(key){
+//   const url = new URL(location.href)
+//   return url.searchParams.get(key)
+// }
 // 返回url参数对象
 export function getParameters(url) {
   return url.match(/([^?=&]+)(=([^&]*))/g).reduce((a, v) => (a[v.slice(0, v.indexOf('='))] = v.slice(v.indexOf('=') + 1), a), {})
@@ -102,4 +120,38 @@ export function escapeHTML(str) {
       '"': '&quot;'
     }[tag] || tag)
   )
+}
+// html转义，另一种思路
+export function htmlEncode(str){
+  let div = document.createElement('div')
+  div.appendChild(document.createTextNode(str))
+  let result = div.innerHTML
+  div = null
+  return result
+}
+// html反转义
+export function htmlDecode(str){
+  let div = document.createElement('div')
+  div.innerHTML = str
+  let result = div.innerText || div.textContent
+  div = null
+  return result
+}
+// 从字符串中正则匹配https链接
+export function extractLink(s) {
+  var re = /https?:\/\/[^\s]+/
+  var result = s.match(re)
+  if (result) {
+    return result[0]
+  } else {
+    return ''
+  }
+}
+// utf-8转base64
+export function utf8ToBase64(str) {
+  return window.btoa(unescape(encodeURIComponent(str)))
+}
+// base64转utf-8
+export function base64ToUtf8(str) {
+  return decodeURIComponent(escape(window.atob(str)))
 }

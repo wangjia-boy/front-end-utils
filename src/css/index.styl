@@ -1,0 +1,76 @@
+h1, h2, h3, h4, h5, h6, p, ul, ol, li{
+  margin 0
+  padding 0
+}
+
+a{
+  text-decoration none
+  color inherit
+}
+
+li{
+  list-style none
+}
+
+img[alt=""], img:not([alt]){
+	border 5px dashed #c00
+}
+
+.img-responsive{
+	display block
+	height auto
+	width 100%
+	max-width 100%
+}
+
+.clearfix:after{
+  content '\20'
+  display block
+  height 0
+  font-size 0
+  visibility hidden
+  clear both
+}
+
+.clearfix{
+  zoom 1
+}
+
+input[type=text]::-ms-clear,input[type=password]::-ms-reveal{
+  display none
+}
+
+input[required]:invalid,input:focus:invalid,textarea[required]:invalid,textarea:focus:invalid{
+  box-shadow none
+  -moz-box-shadow none
+}
+
+input[type=button],input[type=submit],input[type=file],input[type=reset],button,label{
+  cursor pointer
+}
+
+input[type=button],input[type=submit],input[type=file],input[type=reset],button{
+  -webkit-appearance none
+}
+
+button::-moz-focus-inner,input[type="reset"]::-moz-focus-inner,input[type="button"]::-moz-focus-inner,
+input[type="submit"]::-moz-focus-inner,input[type="file"] > input[type="button"]::-moz-focus-inner{
+  border none
+  padding 0
+}
+
+time{
+  display inline
+}
+
+audio,canvas,video{
+  display inline-block
+}
+
+audio:not([controls]){
+  display none
+}
+
+svg:not(:root) {
+  overflow hidden
+}

@@ -2,6 +2,14 @@ const lStorage = (function() {
   const name = 'lStorage'
     , storage = window.localStorage
 
+  const test = function() {
+    if (!window.localStorage) {
+      return false
+    } else {
+      return true
+    }
+  }
+
   const setItem = function (key, value) {
     let data = storage.getItem(name)
     if (!data) {
@@ -49,6 +57,14 @@ const lStorage = (function() {
 const sStorage = (function() {
   const name = 'sStorage'
     , storage = window.sessionStorage
+
+  const test = function() {
+    if (!window.sessionStorage) {
+      return false
+    } else {
+      return true
+    }
+  }
 
   const setItem = function (key, value) {
     let data = storage.getItem(name)
