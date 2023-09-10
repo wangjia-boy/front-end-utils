@@ -100,6 +100,28 @@ export function getQueryString(key){
 export function getParameters(url) {
   return url.match(/([^?=&]+)(=([^&]*))/g).reduce((a, v) => (a[v.slice(0, v.indexOf('='))] = v.slice(v.indexOf('=') + 1), a), {})
 }
+
+export function parseUrlParams(url = window.location.search) {
+  const search = url.substring(1);
+  const params = {};
+  search.split('&').forEach(param => {
+    const [key, value] = param.split('=');
+    params[key] = decodeURIComponent(value);
+  });
+  return params;
+}
+
+export function buildUrlParams(obj) {
+  const params = [];
+  for (let key in obj) {
+    if (obj.hasOwnProperty(key)) {
+      const value = encodeURIComponent(obj[key]);
+      const param = `${encodeURIComponent(key)}=${value}`;
+      params.push(param);
+    }
+  }
+  return params.join('&');
+}
 // 拼接参数
 export function setParams(url, param) {
   let args = ''
