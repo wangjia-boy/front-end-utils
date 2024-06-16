@@ -102,7 +102,7 @@ export function getParameters(url) {
 }
 
 export function parseUrlParams(url = window.location.search) {
-  const search = url.substring(1);
+  const search = /^https?:\/\/.*$/.test(url) ? url.split('?')[1] : url.substring(1);
   const params = {};
   search.split('&').forEach(param => {
     const [key, value] = param.split('=');
