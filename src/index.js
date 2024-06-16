@@ -3,6 +3,8 @@ import { typeJudge } from './js/utils.js'
 import { Base64 } from './js/utils/function'
 import { getParameters, setParams, parseUrlParams, buildUrlParams } from './js/utils/string'
 
+// import './js/capture.js'
+
 console.log(Base64.encode('wj123456'))
 console.log(parseUrlParams('http://example.com/?name=Alice&age=25&url=http://example.com/page?param=value'))
 const obj = {
